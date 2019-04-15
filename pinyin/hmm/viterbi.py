@@ -2,6 +2,8 @@
 """
     viterbi算法实现
 """
+import sys
+sys.path.append(r'./')    #要用绝对路径
 from pinyin.model import Emission, Transition
 
 
