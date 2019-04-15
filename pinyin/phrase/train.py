@@ -1,5 +1,5 @@
 # -*- coding=utf8 -*-
-from __future__ import division
+
 from math import log
 from pypinyin import lazy_pinyin
 
@@ -19,17 +19,17 @@ def int_phrase_pinyin_map():
     result = {}
     total = 0
     for phrase, frequency in iter_dict():
-        py = u' '.join(lazy_pinyin(phrase))
+        py = ' '.join(lazy_pinyin(phrase))
         total += frequency
         if py not in result:
             result[py] = {phrase: frequency}
         else:
             result[py][phrase] = result[py].get(phrase, 0) + frequency
 
-    for py, phrase_map in result.iteritems():
+    for py, phrase_map in result.items():
         total_frequency = sum(phrase_map.values())
         Pinyin.add(py, log(total_frequency / total))
-        for phrase, frequency in phrase_map.iteritems():
+        for phrase, frequency in phrase_map.items():
             PhrasePinyin.add(phrase, py, log(frequency / total_frequency))
 
 
