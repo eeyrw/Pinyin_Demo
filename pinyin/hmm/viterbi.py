@@ -19,7 +19,7 @@ def viterbi(pinyin_list):
         pinyin = pinyin_list[i]
 
         prob_map = {}
-        for phrase, prob in V.items():
+        for phrase, prob in V.iteritems():
             character = phrase[-1]
             result = Transition.join_emission(pinyin, character)
             if not result:
@@ -37,9 +37,9 @@ def viterbi(pinyin_list):
 
 if __name__ == '__main__':
     while 1:
-        string = input('input:')
+        string = raw_input('input:')
         pinyin_list = string.split()
         V = viterbi(pinyin_list)
 
-        for phrase, prob in sorted(list(V.items()), key=lambda d: d[1], reverse=True):
-            print(phrase, prob)
+        for phrase, prob in sorted(V.items(), key=lambda d: d[1], reverse=True):
+            print phrase, prob

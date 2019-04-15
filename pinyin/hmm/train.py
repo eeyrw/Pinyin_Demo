@@ -2,7 +2,7 @@
 """
     获取HMM模型
 """
-
+from __future__ import division
 from math import log
 
 from pypinyin import pinyin, NORMAL
@@ -26,7 +26,7 @@ def init_start():
         total_count += frequency
         freq_map[phrase[0]] = freq_map.get(phrase[0], 0) + frequency
 
-    for character, frequency in freq_map.items():
+    for character, frequency in freq_map.iteritems():
         Starting.add(character, log(frequency / total_count))
 
 
@@ -48,9 +48,9 @@ def init_emission():
                     pinyin_freq_map[x] = pinyin_freq_map.get(x, 0) + \
                                          frequency/character_pinyin_count
 
-    for character, pinyin_map in character_pinyin_map.items():
+    for character, pinyin_map in character_pinyin_map.iteritems():
         sum_frequency = sum(pinyin_map.values())
-        for py, frequency in pinyin_map.items():
+        for py, frequency in pinyin_map.iteritems():
             Emission.add(character, py, log(frequency/sum_frequency))
 
 
@@ -68,9 +68,9 @@ def init_transition():
             else:
                 transition_map[phrase[i]] = {phrase[i+1]: frequency}
 
-    for previous, behind_map in transition_map.items():
+    for previous, behind_map in transition_map.iteritems():
         sum_frequency = sum(behind_map.values())
-        for behind, freq in behind_map.items():
+        for behind, freq in behind_map.iteritems():
             Transition.add(previous, behind, log(freq / sum_frequency))
 
 
