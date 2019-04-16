@@ -15,7 +15,7 @@ from pinyin.model import (
     HMMSession
 )
 from pinyin.utils import iter_dict
-
+from pinyin.utils import iter_dataset
 
 def init_start():
     """
