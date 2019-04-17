@@ -9,6 +9,14 @@ import numpy as np
 from functools import reduce
 import random
 
+def getRawString(diffString):
+    diffList=[]
+    for i in range(0,len(diffString),3):
+        diffList.append(diffString[i:i+3])
+    strA=''.join(difflib.restore(diffList,1))
+    strB=''.join(difflib.restore(diffList,2))
+    return (strA,strB)
+
 if __name__ == '__main__':
     fp = open("testResult.txt","rb")
     resultList=pickle.load(fp)
@@ -42,16 +50,17 @@ if __name__ == '__main__':
         f.write('Example within 0~5:\n')
         for i in range(5):
             randomItem=secure_random.choice(resultList_le5)
-            f.write('LEN:%2d ERROR:%.2f%%\n    DIFF:%s\n'%randomItem)
+            f.write('真值：%s\n预测：%s\n\n'%getRawString(randomItem[2]))
         f.write('Example within 6~10:\n')
         for i in range(5):
             randomItem=secure_random.choice(resultList_gt5le10)
-            f.write('LEN:%2d ERROR:%.2f%%\n    DIFF:%s\n'%randomItem)
+            f.write('真值：%s\n预测：%s\n\n'%getRawString(randomItem[2]))
         f.write('Example within 11~20:\n')
         for i in range(5):
             randomItem=secure_random.choice(resultList_gt10le20)
-            f.write('LEN:%2d ERROR:%.2f%%\n    DIFF:%s\n'%randomItem)                
+            f.write('真值：%s\n预测：%s\n\n'%getRawString(randomItem[2]))
         f.write('Example within >20:\n')
-        for i in range(5):
+        for i in range(7):
             randomItem=secure_random.choice(resultList_gt20)
-            f.write('LEN:%2d ERROR:%.2f%%\n    DIFF:%s\n'%randomItem)                      
+            f.write('%s\n'%randomItem[2])
+            f.write('真值：%s\n预测：%s\n\n'%getRawString(randomItem[2]))
